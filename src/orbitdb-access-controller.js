@@ -74,11 +74,15 @@ class OrbitDBAccessController extends AccessController {
     this._db = await this._orbitdb.keyvalue(ensureAddress(address), {
       // use ipfs controller as a immutable "root controller"
       accessController: {
-        type: 'ipfs',
+        type: this._options.loop ? 'loop' : 'ipfs',
         write: this._options.admin || [this._orbitdb.identity.id]
       },
       sync: true
     })
+
+    if (this._db.access.type === 'loop') {
+      this._db.access.connectLoop(this)
+    }
 
     this._db.events.on('ready', this._onUpdate.bind(this))
     this._db.events.on('write', this._onUpdate.bind(this))

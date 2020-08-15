@@ -4,10 +4,12 @@ const AccessController = require('./access-controller-interface')
 const AccessControllerManifest = require('./access-controller-manifest')
 const LegacyIPFSAccessController = require('./legacy-ipfs-access-controller')
 const IPFSAccessController = require('./ipfs-access-controller')
+const LoopAccessController = require('./loop-access-controller')
 const OrbitDBAccessController = require('./orbitdb-access-controller')
 
 const supportedTypes = {
   'legacy-ipfs': LegacyIPFSAccessController,
+  loop: LoopAccessController,
   ipfs: IPFSAccessController,
   orbitdb: OrbitDBAccessController
 }
